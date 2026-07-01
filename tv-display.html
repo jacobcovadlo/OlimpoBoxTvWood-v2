@@ -82,7 +82,7 @@
     #screen-display {
       position: fixed; inset: 0;
       display: none; align-items: center; justify-content: center;
-      background: #fff; overflow: hidden;
+      background: #000; overflow: hidden;
       z-index: 2;
     }
 
@@ -106,12 +106,12 @@
     }
     #wod-header .title {
       font-size: clamp(20px, 4.5vw, 90px);
-      font-weight: 900; color: #111;
+      font-weight: 900; color: #fff;
       text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.1;
     }
     #wod-header .subtitle {
       font-size: clamp(14px, 2.7vw, 54px);
-      font-weight: 400; color: rgba(0,0,0,0.45); line-height: 1.15;
+      font-weight: 400; color: rgba(255,255,255,0.6); line-height: 1.15;
       letter-spacing: 0.06em; text-transform: uppercase;
     }
 
@@ -143,58 +143,58 @@
     }
     .card-num {
       font-size: 0.85em; font-weight: 400;
-      color: rgba(0,0,0,0.3);
+      color: rgba(255,255,255,0.35);
       line-height: 1.1; margin-bottom: 0.08em;
       letter-spacing: 0.05em;
       white-space: normal;
     }
     .card-title {
       font-size: 1.9em; font-weight: 900;
-      color: #000;
+      color: #fff;
       line-height: 1.05; margin-bottom: 0.08em;
       letter-spacing: 0.01em;
       white-space: normal;
     }
     .wod-line {
       font-size: 1em; font-weight: 500;
-      color: #111; line-height: 1.35;
+      color: #fff; line-height: 1.35;
       white-space: normal;
     }
     .wod-note {
       font-size: 0.88em; font-style: italic;
-      color: rgba(0,0,0,0.4); line-height: 1.15;
+      color: rgba(255,255,255,0.45); line-height: 1.15;
       white-space: normal;
     }
-    strong { color: #000; font-weight: 900; }
+    strong { color: #fff; font-weight: 900; }
     #wod-grid strong { font-size: 1.2em; font-weight: 900; }
 
     /* Botón volver */
     #btn-back {
       position: fixed; bottom: 0.5rem; right: 0.7rem;
-      background: rgba(0,0,0,0.06); color: #999;
+      background: rgba(255,255,255,0.06); color: #444;
       font-size: 0.65rem; padding: 0.25rem 0.6rem;
-      border-radius: 3px; opacity: 0.4; transition: opacity 0.2s;
+      border-radius: 3px; opacity: 0.3; transition: opacity 0.2s;
       text-transform: none; letter-spacing: 0;
       font-family: Arial, sans-serif; font-weight: 400; z-index: 20;
     }
-    #btn-back:hover { opacity: 1; color: #333; }
+    #btn-back:hover { opacity: 1; color: #ccc; }
 
     #btn-fs-display {
       position: fixed; bottom: 1.2rem; left: 1.2rem;
-      background: rgba(0,0,0,0.08); color: #555;
+      background: rgba(255,255,255,0.22); color: #fff;
       font-size: 1.2rem; padding: 0.75rem 1.5rem;
       border-radius: 8px; font-weight: 700;
       font-family: Arial, sans-serif; z-index: 20;
       text-transform: none; letter-spacing: 0;
     }
-    #btn-fs-display:hover { background: rgba(0,0,0,0.15); color: #111; }
+    #btn-fs-display:hover { background: rgba(255,255,255,0.35); }
 
     @media (max-width: 600px) {
       #btn-back {
-        opacity: 1; color: #333; font-weight: 700;
+        opacity: 1; color: #fff; font-weight: 700;
         font-size: 1.2rem; padding: 0.75rem 1.5rem;
         bottom: 1.2rem; right: 1.2rem;
-        background: rgba(0,0,0,0.08); border-radius: 8px;
+        background: rgba(255,255,255,0.22); border-radius: 8px;
         width: auto;
       }
     }
