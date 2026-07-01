@@ -807,6 +807,11 @@
       if (!document.fullscreenElement && screen.orientation && screen.orientation.unlock) {
         screen.orientation.unlock();
       }
+      const inFS = !!document.fullscreenElement;
+      const fsDisplay = document.getElementById('btn-fs-display');
+      const fsTv = document.getElementById('btn-tv-fs');
+      if (fsDisplay) fsDisplay.style.display = inFS ? 'none' : '';
+      if (fsTv) fsTv.style.display = inFS ? 'none' : '';
       setTimeout(scaleWOD, 200);
     });
 
