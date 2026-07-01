@@ -531,20 +531,11 @@
       const noteEl  = document.getElementById('cast-note');
 
       if (isIOS) {
-        // iPhone/iPad: Safari no permite pantalla completa real ni bloquear la
-        // orientación desde la web. La única forma de quitar las barras del
-        // navegador es añadir la página a la pantalla de inicio (modo app).
-        let steps = '';
-        let n = 1;
-        if (!isStandalone) {
-          steps += castStep(n++, 'Toca <strong>Compartir</strong> (el icono del cuadrado con flecha) y luego <strong>"Añadir a pantalla de inicio"</strong> — así se abre sin las barras de Safari');
-          steps += castStep(n++, 'Abre la app desde el icono que se ha creado en tu pantalla de inicio');
-        }
-        steps += castStep(n++, '<strong>Gira el móvil</strong> a horizontal');
-        steps += castStep(n++, 'Abre el <strong>Centro de Control</strong> (desliza desde la esquina superior derecha) y toca <strong>"Duplicar pantalla"</strong>');
-        steps += castStep(n++, 'Elige tu <strong>TV</strong> en la lista');
-        stepsEl.innerHTML = steps;
-        noteEl.innerHTML = 'iOS no permite bloquear la orientación desde la web — si no giras el móvil, la TV mostrará la imagen en vertical.';
+        stepsEl.innerHTML =
+          castStep(1, '<strong>Opción A — TV con AirPlay 2</strong> (Samsung, LG, Sony recientes): gira el móvil a horizontal → Centro de Control → <strong>"Duplicar pantalla"</strong> → elige tu TV') +
+          castStep(2, '<strong>Opción B — TV con navegador</strong> (Google TV, Android TV, Samsung, LG): abre el navegador del TV y ve a <strong>jacobcovadlo.github.io/OlimpoBoxTvWood/tv-display.html</strong>') +
+          castStep(3, '<strong>Opción C — Cable HDMI</strong>: conecta el iPhone al TV con un adaptador Lightning/USB-C a HDMI');
+        noteEl.innerHTML = 'El iPhone <strong>no puede enviar contenido a un Chromecast directamente</strong> — Chromecast es tecnología de Google y no es compatible con AirPlay. Usa una de las opciones anteriores.';
       } else {
         stepsEl.innerHTML =
           castStep(1, 'Desliza desde arriba para abrir los <strong>ajustes rápidos</strong> del móvil') +
