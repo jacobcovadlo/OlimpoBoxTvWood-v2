@@ -264,6 +264,17 @@
       font-size: 0.8rem; padding: 0.55rem 1.4rem;
     }
     #btn-cast-close:hover { color: #ccc; }
+
+    /* ════ Pantalla de espera TV ════ */
+    #screen-tv-wait {
+      display: none; position: fixed; inset: 0;
+      background: #000; flex-direction: column;
+      align-items: center; justify-content: center; z-index: 5;
+    }
+    #tv-wait-text {
+      color: #2a2a2a; font-family: 'Arial Black', Arial, sans-serif;
+      font-size: 1.4rem; letter-spacing: 0.2em;
+    }
   </style>
 </head>
 <body>
@@ -293,6 +304,11 @@
     <div id="display-hint">F pantalla completa · C chromecast · Esc volver</div>
   </div>
 
+  <!-- Pantalla 3: TV en espera -->
+  <div id="screen-tv-wait">
+    <p id="tv-wait-text">ESPERANDO WOD...</p>
+  </div>
+
   <!-- Modal: instrucciones Chromecast -->
   <div id="cast-modal">
     <div id="cast-panel">
@@ -304,6 +320,40 @@
   </div>
 
   <script>
+
+    /* ─── Canal TV en tiempo real ─── */
+    const NTFY_TOPIC = 'olimpobox-wod-7f3k';
+    const NTFY_URL   = 'https://ntfy.sh/' + NTFY_TOPIC;
+
+    function sendToTV(raw) {
+      fetch(NTFY_URL, { method: 'POST', body: raw }).catch(() => {});
+    }
+
+    function startTVMode() {
+      document.getElementById('screen-editor').style.display = 'none';
+      document.getElementById('screen-tv-wait').style.display = 'flex';
+      // Cargar el último WOD del historial (últimas 12h)
+      fetch(NTFY_URL + '/json?poll=1&since=12h')
+        .then(r => r.text())
+        .then(text => {
+          const lines = text.trim().split('\n').filter(Boolean);
+          if (lines.length) {
+            try { const m = JSON.parse(lines[lines.length - 1]).message; if (m) showTVWOD(m); } catch(e) {}
+          }
+        }).catch(() => {});
+      // Escuchar nuevos WODs en tiempo real
+      const es = new EventSource(NTFY_URL + '/sse');
+      es.addEventListener('message', e => {
+        try { const m = JSON.parse(e.data).message; if (m) showTVWOD(m); } catch(e) {}
+      });
+    }
+
+    function showTVWOD(raw) {
+      document.getElementById('screen-tv-wait').style.display = 'none';
+      renderWOD(raw);
+      document.getElementById('screen-display').style.display = 'flex';
+      setTimeout(scaleWOD, 100);
+    }
 
     /* ─── Codificación WOD en URL ─── */
     function encodeWOD(text) {
@@ -502,6 +552,7 @@
       const raw = document.getElementById('wod-input').value;
       if (!raw.trim()) return;
 
+      sendToTV(raw);
       history.replaceState(null, '', '#wod=' + encodeWOD(raw));
       renderWOD(raw);
       document.getElementById('screen-editor').style.display = 'none';
@@ -664,10 +715,12 @@
       }
     }
 
-    /* ─── Auto-display si la página se abre desde un enlace compartido ─── */
+    /* ─── Arranque según URL hash ─── */
     (function() {
       const h = location.hash;
-      if (h.startsWith('#wod=')) {
+      if (h === '#tv') {
+        startTVMode();
+      } else if (h.startsWith('#wod=')) {
         const wod = decodeWOD(h.slice(5));
         if (wod) {
           document.getElementById('wod-input').value = wod;
