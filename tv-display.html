@@ -316,6 +316,7 @@
     <textarea id="wod-input" placeholder="Pega aquí el WOD del día..."></textarea>
     <div class="editor-btns">
       <button id="btn-show">Mostrar en TV</button>
+      <button id="btn-tv-mode">📺 Modo TV (QR)</button>
       <button id="btn-fs">⛶ Pantalla completa</button>
       <button id="btn-cast">📡 Chromecast</button>
       <button id="btn-share">📋 Copiar URL</button>
@@ -722,6 +723,10 @@
 
     /* ─── Eventos ─── */
     document.getElementById('btn-show').addEventListener('click', showDisplay);
+    document.getElementById('btn-tv-mode').addEventListener('click', () => {
+      history.replaceState(null, '', '#tv');
+      startTVMode();
+    });
     document.getElementById('btn-cast').addEventListener('click', startCast);
     document.getElementById('btn-cast-close').addEventListener('click', closeCastModal);
     document.getElementById('cast-modal').addEventListener('click', e => {
