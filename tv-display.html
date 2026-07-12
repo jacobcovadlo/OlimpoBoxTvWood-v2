@@ -9,7 +9,7 @@
   <title>WOD TV</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -98,25 +98,28 @@
 
 
 
-    /* ── Logo pantalla display (blanco sobre fondo oscuro) ── */
-    #display-logo {
-      position: fixed; bottom: 6rem; right: 1.8rem;
-      width: clamp(90px, 10vw, 150px);
-      opacity: 0.95;
-      z-index: 10; pointer-events: none;
+    /* ── Esquina inferior derecha: logo + reloj ── */
+    #display-corner {
+      position: fixed; bottom: 1.5rem; right: 1.8rem;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 0.6rem; z-index: 10; pointer-events: none;
     }
-
-    /* ── Reloj ── */
+    #display-logo {
+      width: clamp(120px, 13vw, 200px);
+      opacity: 0.95;
+    }
     #wod-clock {
-      position: fixed; bottom: 1.4rem; right: 1.8rem;
-      background: rgba(0,0,0,0.35);
-      border: 2.5px solid rgba(255,255,255,0.9);
-      border-radius: 10px; padding: 0.4rem 1.2rem;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: clamp(1.6rem, 3vw, 3.5rem);
+      background: rgba(15, 0, 35, 0.5);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(200, 120, 255, 0.45);
+      border-radius: 14px; padding: 0.45rem 1.4rem;
+      font-family: 'Orbitron', 'Courier New', monospace;
+      font-size: clamp(1.6rem, 3vw, 3.8rem);
       font-weight: 700; color: #fff;
-      letter-spacing: 0.08em; z-index: 10;
-      pointer-events: none;
+      letter-spacing: 0.12em;
+      text-shadow: 0 0 18px rgba(210,100,255,0.9), 0 0 40px rgba(160,0,255,0.55);
+      box-shadow: 0 0 24px rgba(160,0,255,0.35), inset 0 0 16px rgba(100,0,200,0.15);
     }
 
     /* Marco con la proporción real de un TV (16:9), centrado y
@@ -411,8 +414,10 @@
     <button id="btn-back">← Volver</button>
     <button id="btn-fs-display" onclick="toggleFullscreen()">⛶ Pantalla completa</button>
     <div id="display-hint">F pantalla completa · C chromecast · Esc volver</div>
-    <img id="display-logo" src="" alt="Olympo Box">
-    <div id="wod-clock"><span id="clock-display">--:--</span></div>
+    <div id="display-corner">
+      <img id="display-logo" src="" alt="Olympo Box">
+      <div id="wod-clock"><span id="clock-display">--:--</span></div>
+    </div>
   </div>
 
   <!-- Pantalla 3: TV en espera (muestra QR) -->
